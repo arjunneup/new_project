@@ -15,7 +15,6 @@
       @include('includes.navbar')
       <div class="container-fluid">
         <h1 class="mt-4">User Table</h1>
-
         <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Names in Table..">
         <div style="overflow-x:auto">
           <table class="table" id="usersTable">

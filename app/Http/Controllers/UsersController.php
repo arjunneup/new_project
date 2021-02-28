@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+
 class UsersController extends Controller
 {
     /**
@@ -14,7 +16,7 @@ class UsersController extends Controller
      */
 
 
-     public function index()
+    public function index()
     {
         return view('users.welcome');
     }
@@ -26,7 +28,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        //
+        return view('create');
     }
 
     /**
@@ -38,6 +40,11 @@ class UsersController extends Controller
     public function store(Request $request)
     {
         //create variable
+        $validatedData = $request->validate([
+            'title' => ['bail', 'required', 'string', 'max:255'],
+            'lastname' => ['required', 'required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users']
+        ]);
         $users = new Users();
         $users->title = $request->title;
         $users->lastname = $request->lastname;
@@ -46,7 +53,6 @@ class UsersController extends Controller
         $users->save();
 
         return redirect()->route('main');
-        //return redirect()->back();
     }
 
     /**
@@ -80,6 +86,12 @@ class UsersController extends Controller
      */
     public function update(Request $request, Users $users)
     {
+
+        $validatedData = $request->validate([
+            'title' => ['bail', 'required', 'string', 'max:255'],
+            'lastname' => ['required', 'required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255']
+        ]);
         $users->title = $request->title;
         $users->lastname = $request->lastname;
         $users->username = $request->username;
@@ -102,8 +114,7 @@ class UsersController extends Controller
 
     public function allList()
     {
-        
-        return view('users.index', ['users'=>DB::table('users')->paginate(2)]);
-        //return view('users.index')->with('users', Users::all());
+
+        return view('users.index', ['users' => DB::table('users')->paginate(2)]);
     }
 }

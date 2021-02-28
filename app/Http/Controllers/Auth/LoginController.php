@@ -7,6 +7,9 @@ use App\Providers\RouteServiceProvider;
 use Facade\FlareClient\Http\Response;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\User;
 
 class LoginController extends Controller
 {
@@ -50,7 +53,34 @@ class LoginController extends Controller
     public function handleProviderCallback()
     {
         $user = Socialite::driver('google')->stateless()->user();        
-        return redirect()->route('main');    
+
+        $email = $user->email;
+        $client = User::where('email', $email)->first();
+
+        if($client){
+            auth()->loginUsingId($client->id);
+            return redirect()->route('main');  
+        }
+        //TODO return with proper message
+        return redirect()->route('login')->withErrors('User is not registered.');  
+            
     }
+
+    
+    public function showLoginForm()
+    {
+        return view('auth.login');
+    }
+
+    public function logout(Request $request)
+{
+    Auth::logout();
+
+    $request->session()->invalidate();
+
+    $request->session()->regenerateToken();
+
+    return redirect('login');
+}
 }
  

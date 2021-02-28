@@ -12,6 +12,15 @@
             @include('includes.navbar')
             <div class="container-fluid">
                 <h1 class="mt-4">Edit User</h1>
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div><br />
+                @endif
                 <form action="{{route('users.update', [$users->id])}}" method='post'>
                     @csrf
                     {{ method_field('PUT') }}

@@ -4,6 +4,7 @@
 <head>
     @include('includes.head')
 </head>
+
 <body>
     <div class="d-flex" id="wrapper">
         @include('includes.header')
@@ -11,6 +12,15 @@
             @include('includes.navbar')
             <div class="container-fluid">
                 <h1 class="mt-4">Add New User</h1>
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div><br />
+                @endif
                 <form action="{{route('users.store')}}" method='post'>
                     @csrf
                     <div class="form-group">
