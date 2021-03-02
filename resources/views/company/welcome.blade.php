@@ -7,7 +7,7 @@
 
 <body>
     <div class="d-flex" id="wrapper">
-        @include('includes.header')
+        @include('includes.company_header')
         <div id="page-content-wrapper">
             @include('includes.navbar')
             <div class="container-fluid">
@@ -37,12 +37,9 @@
                             <input type="text" class="form-control" placeholder="Email Address" name="email" id="email">
                         </div>
                         <div class="col">
-                            <label for="role">Select Role</label>
+                            <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Role</label>
                             <select class="custom-select my-1 mr-sm-2" name="role" id="role">
-                                <option selected>Select Role</option>
-                                <option value="1">admin</option>
-                                <option value="2">company</option>
-                                <option value="3">user</option>
+                                <option value="user">user</option>
                             </select>
                         </div>
                     </div>

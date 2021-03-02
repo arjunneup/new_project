@@ -41,17 +41,18 @@ class UsersController extends Controller
     {
         //create variable
         $validatedData = $request->validate([
-            'title' => ['bail', 'required', 'string', 'max:255'],
+            'title' => [ 'required', 'string', 'max:255'],
             'lastname' => ['required', 'required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users']
         ]);
         $users = new Users();
         $users->title = $request->title;
         $users->lastname = $request->lastname;
-        $users->username = $request->username;
         $users->email = $request->email;
+        $users->role = $request->role;
+        
         $users->save();
-
+       
         return redirect()->route('main');
     }
 
@@ -93,9 +94,11 @@ class UsersController extends Controller
             'email' => ['required', 'string', 'email', 'max:255']
         ]);
         $users->title = $request->title;
+      
         $users->lastname = $request->lastname;
         $users->username = $request->username;
         $users->email = $request->email;
+        $users->role = $request->role;  
         $users->save();
         return redirect()->route('main');
     }
@@ -115,6 +118,6 @@ class UsersController extends Controller
     public function allList()
     {
 
-        return view('users.index', ['users' => DB::table('users')->paginate(2)]);
+        return view('users.index', ['users' => DB::table('users')->paginate(5)]);
     }
 }

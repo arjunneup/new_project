@@ -7,7 +7,7 @@
 
 <body>
     <div class="d-flex" id="wrapper">
-        @include('includes.header')
+        @include('includes.company_header')
         <div id="page-content-wrapper">
             @include('includes.navbar')
             <div class="container-fluid">
@@ -42,20 +42,13 @@
                             <select class="form-control" id="type" name="role">
                                 @if($users->role)
                                 <option value="{{$users->role}}" selected>{{$users->role}} </option>
-                                <option value="user">user</option>
-                                <option value ="company">company</option>
-                                <option value="admin">admin</option>  
-                               
-                                @else
-                                <option value="">Select Role</option>
-                                <option value="user">admin</option>
-                                <option value="company">company</option>
-                                <option value="admin">admin</option>
                                 @endif
                             </select>
                         </div>
                     </div>
-                    <button class="btn btn-primary" type="submit">Update</button>
+                   
+                        <button class="btn btn-primary" type="submit">Update</button>
+                    
             </div>
         </div>
 </body>

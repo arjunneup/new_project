@@ -31,9 +31,32 @@ class LoginController extends Controller
      *
      * @var string
      */
-    
+
     protected $redirectTo = RouteServiceProvider::HOME;
-    
+
+
+    public function redirectTo()
+    {
+        switch (Auth::user()->role) {
+            case 1:
+                $this->redirectTo = '/admin';
+                return $this->redirectTo;
+                break;
+            case 2:
+                $this->redirectTo = '/company';
+                return $this->redirectTo;
+                break;
+            case 3:
+                $this->redirectTo = '/user';
+                return $this->redirectTo;
+                break;
+            default:
+            #code
+            $this->redirectTo = '/login';
+            return $this->redirectTo;
+            break;
+        }
+    }
     /**
      * Create a new controller instance.
      *
@@ -44,7 +67,8 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function redirectToProvider(){
+    public function redirectToProvider()
+    {
         return Socialite::driver('google')->redirect();
     }
 
@@ -52,35 +76,33 @@ class LoginController extends Controller
 
     public function handleProviderCallback()
     {
-        $user = Socialite::driver('google')->stateless()->user();        
+        $user = Socialite::driver('google')->stateless()->user();
 
         $email = $user->email;
         $client = User::where('email', $email)->first();
 
-        if($client){
+        if ($client) {
             auth()->loginUsingId($client->id);
-            return redirect()->route('main');  
+            return redirect()->route('main');
         }
         //TODO return with proper message
-        return redirect()->route('login')->withErrors('User is not registered.');  
-            
+        return redirect()->route('login')->withErrors('User is not registered.');
     }
 
-    
+
     public function showLoginForm()
     {
         return view('auth.login');
     }
 
     public function logout(Request $request)
-{
-    Auth::logout();
+    {
+        Auth::logout();
 
-    $request->session()->invalidate();
+        $request->session()->invalidate();
 
-    $request->session()->regenerateToken();
+        $request->session()->regenerateToken();
 
-    return redirect('login');
+        return redirect('login');
+    }
 }
-}
- 

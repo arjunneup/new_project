@@ -41,11 +41,9 @@
                   <td>{{$user->role}}</td>
                   <td>{{$user->created_at}}</td>
                   <td>{{$user->updated_at}}</td>
-                  <td> 
+                  <td>
                     <a href="/users/{{$user->id}}" class="btn btn-primary">Edit</a>
-                    @if($user->role!='admin')
                     <button class="btn btn-danger" type="submit">Delete</button>
-                    @endif
                   </td>
               </tr>
               @csrf
@@ -56,9 +54,9 @@
           </table>
         </div>
         {{ $users->links() }}
-
+        
         <button class="btn btn-sucess">
-          <a href="/users" class="btn btn-success">Add new User</a>
+          <a href="/users" class="btn btn-success">Add new Company</a>
       </div>
     </div>
     <!-- /#page-content-wrapper -->
