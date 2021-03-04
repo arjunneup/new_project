@@ -24,6 +24,7 @@
                 <th scope="col">Email</th>
                 <th scope="col">Role</th>
                 <th scope="col">Status</th>
+                <th scope="col">Company</th>
                 <th scope="col">Created</th>
                 <th scope="col">Updated</th>
                 <th scope="col">Action</th>
@@ -43,6 +44,9 @@
                     @else
                       <span class="badge-danger badge">Not Approved</span>
                     @endif
+                  </td>
+                  <td>
+                    {{optional($user->company)->name}}
                   </td>
                   <td>{{$user->created_at}}</td>
                   <td>{{$user->updated_at}}</td>
@@ -66,7 +70,7 @@
         {{ $users->links() }}
 
         <button class="btn btn-sucess">
-          <a href="/users" class="btn btn-success">Add new User</a>
+          <a href="{{route('user.create')}}" class="btn btn-success">Add new User</a>
       </div>
     </div>
     <!-- /#page-content-wrapper -->

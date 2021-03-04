@@ -55,13 +55,13 @@
 </script>
 
 <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var input = document.getElementById('role');
-            if (localStorage['role']) { // if job is set
-                input.value = localStorage['role']; // set the value
-            }
-            input.onchange = function() {
-                localStorage['role'] = this.value; // change localStorage on change
-            }
-        });
+        // document.addEventListener('DOMContentLoaded', function() {
+        //     var input = document.getElementById('role');
+        //     if (localStorage['role']) { // if job is set
+        //         input.value = localStorage['role']; // set the value
+        //     }
+        //     input.onchange = function() {
+        //         localStorage['role'] = this.value; // change localStorage on change
+        //     }
+        // });
     </script>

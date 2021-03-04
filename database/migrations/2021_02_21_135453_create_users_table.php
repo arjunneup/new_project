@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('email');
             $table->string('role')->nullable();
             $table->integer('status_id')->nullable();
+            $table->foreignId('company_id')->nullable()->constrained('companies');
             $table->timestamps();
         });
     }

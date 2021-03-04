@@ -15,10 +15,10 @@ class CheckStatus
      * @return mixed
      */
     public function handle($request, Closure $next)
-    {
-
-        
-        if (!auth()->user()->status_id = 0) {
+    {        
+        if (auth()->user()->status_id !== 1) {
+            // auth()->logout();
+            // abort(403, 'Please contact admin');
             return redirect()->route('users.status.approval');
         }
         return $next($request);

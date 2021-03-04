@@ -18,9 +18,9 @@ use Laravel\Socialite\Facades\Socialite;
 */
 
 #here, usercontroller is the admin
-Route::middleware(['auth'])->group(function () {
-    Route::get('/user', 'UsersController@allList')->name('main');
-    Route::get('/users', 'UsersController@index')->name('users.welcome');
+Route::middleware(['auth','checkstatus'])->group(function () {
+    Route::get('/user', 'UsersController@index')->name('user.index');
+    Route::get('/user/create', 'UsersController@create')->name('user.create');
     Route::post('/users', 'UsersController@store')->name('users.store');
     Route::get('/users/{users}', 'UsersController@edit')->name('users.edit');
     Route::put('/users/{users}', 'UsersController@update')->name('users.update');
@@ -29,15 +29,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/user/{user}/status', 'UserStatusController@edit')->name('user.status');
     Route::put('/user/{user}/status', 'UserStatusController@update')->name('user.status.update');
 
-    //Route::get('/', 'HomeController@approval')->name('users.status.approval');
-
-    //Route::get('/home', 'HomeController@index')->name('home');
-
+    
+    
+    // Route::get('/user', 'UsersController@index')->name('home');
+    
 });
 
-
-
-
+// TODO if verified redirect to home or dashboard
+Route::middleware('auth')->get('/approve', 'HomeController@approval')->name('users.status.approval');
 
 Auth::routes();
 

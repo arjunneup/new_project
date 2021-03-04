@@ -36,9 +36,18 @@
                             <label for="role">Select Role</label>
                             <select class="custom-select my-1 mr-sm-2" name="role" id="role">
                                 <option selected>Select Role</option>
-                                <option value="admin">admin</option>
-                                <option value="company">company</option>
-                                <option value="user">user</option>
+                                @foreach($roles as $role)
+                                    <option value="{{$role}}">{{$role}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col d-none" id="company-select-block">
+                            <label for="company_id">Select Company</label>
+                            <select class="custom-select my-1 mr-sm-2" name="company_id" id="company_id">
+                                <option selected>Select Company</option>
+                                @foreach($companies as $company)
+                                    <option value="{{$company->id}}">{{$company->name}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -48,15 +57,23 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var input = document.getElementById('role');
-            if (localStorage['role']) { // if job is set
-                input.value = localStorage['role']; // set the value
+        // document.addEventListener('DOMContentLoaded', function() {
+        //     var input = document.getElementById('role');
+        //     if (localStorage['role']) { // if job is set
+        //         input.value = localStorage['role']; // set the value
+        //     }
+        //     input.onchange = function() {
+        //         localStorage['role'] = this.value; // change localStorage on change
+        //     }
+        // });
+
+        document.getElementById('role').onchange = function(e){
+            if(e.target.value == 'company' || e.target.value == 'user'){
+                document.getElementById('company-select-block').classList.remove("d-none");
+            }else{
+                document.getElementById('company-select-block').classList.add("d-none");
             }
-            input.onchange = function() {
-                localStorage['role'] = this.value; // change localStorage on change
-            }
-        });
+        };
     </script>
 </body>
 

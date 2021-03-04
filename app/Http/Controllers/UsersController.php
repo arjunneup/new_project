@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Company;
+use App\User;
 use App\Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -18,7 +20,17 @@ class UsersController extends Controller
 
     public function index()
     {
-        return view('users.welcome');
+        $users = new User();
+        $authUser = auth()->user();
+        if($authUser->role != 'admin'){
+            $users = $users->where('role', '<>', 'admin');
+            if($authUser->company){
+               $users = $users->where('company_id',$authUser->company_id);
+            }
+        }
+        
+        $users = $users->paginate(5);
+        return view('users.index', compact('users'));
     }
 
     /**
@@ -28,7 +40,9 @@ class UsersController extends Controller
      */
     public function create()
     {
-        return view('create');
+        $roles = ['admin','company','user'];
+        $companies = Company::select('id','name')->get();
+        return view('users.create', compact('roles', 'companies'));
     }
 
     /**
@@ -50,10 +64,14 @@ class UsersController extends Controller
         $users->lastname = $request->lastname;
         $users->email = $request->email;
         $users->role = $request->role;
+
+        if($request->role == 'company' || $request->role == 'user'){
+            $users->company_id = $request->company_id;
+        }
         
         $users->save();
        
-        return redirect()->route('main');
+        return redirect()->route('user.index');
     }
 
     /**
@@ -115,13 +133,4 @@ class UsersController extends Controller
         return redirect()->route('main');
     }
 
-    public function allList()
-    {
-        $users =  DB::table('users');
-        if(auth()->user()->role != 'admin'){
-            $users = $users->where('role', '<>', 'admin');
-        }
-        
-        return view('users.index', ['users' => $users->paginate(5)]);
-    }
 }
