@@ -21,7 +21,7 @@
                     </ul>
                 </div><br />
                 @endif
-                <form action="{{route('users.store')}}" method='post'>
+                <form action="{{route('companies.store')}}" method='post'>
                     @csrf
                     <div class="form-row">
                         <div class="col">

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
 <head>
   @include('includes.head')
 </head>
@@ -21,27 +20,36 @@
             <thead class="thead-dark">
               <tr>
                 <th scope="col">id</th>
-                <th scope="col">First Name</th>
-                <th scope="col">Last Name</th>
+                <th scope="col">Name</th>
                 <th scope="col">Email</th>
                 <th scope="col">Role</th>
+                <th scope="col">Status</th>
                 <th scope="col">Created</th>
                 <th scope="col">Updated</th>
                 <th scope="col">Action</th>
               </tr>
             </thead>
             <tbody>
+              @foreach($users as $user)
               <tr>
-                @foreach($users as $user)
                 <form action="{{route('users.delete',[$user->id])}}" method="post">
                   <th>{{$user->id}}</th>
                   <td>{{$user->title}}</td>
-                  <td>{{$user->lastname}}</td>
                   <td>{{$user->email}}</td>
                   <td>{{$user->role}}</td>
+                  <td>
+                    @if($user->status_id)
+                      <span class="badge-success badge">Approved</span>
+                    @else
+                      <span class="badge-danger badge">Not Approved</span>
+                    @endif
+                  </td>
                   <td>{{$user->created_at}}</td>
                   <td>{{$user->updated_at}}</td>
                   <td> 
+                    @if(auth()->user()->role == 'admin')
+                      <a href="{{ route('user.status', $user->id) }}" class="btn btn-info">Status</a>
+                    @endif
                     <a href="/users/{{$user->id}}" class="btn btn-primary">Edit</a>
                     @if($user->role!='admin')
                     <button class="btn btn-danger" type="submit">Delete</button>

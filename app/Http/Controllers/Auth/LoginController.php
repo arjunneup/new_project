@@ -51,10 +51,10 @@ class LoginController extends Controller
                 return $this->redirectTo;
                 break;
             default:
-            #code
-            $this->redirectTo = '/login';
-            return $this->redirectTo;
-            break;
+                #code
+                $this->redirectTo = '/login';
+                return $this->redirectTo;
+                break;
         }
     }
     /**
@@ -79,7 +79,8 @@ class LoginController extends Controller
         $user = Socialite::driver('google')->stateless()->user();
 
         $email = $user->email;
-        $client = User::where('email', $email)->first();
+        $client = User::where('email',  $email )->first();
+        
 
         if ($client) {
             auth()->loginUsingId($client->id);
@@ -104,5 +105,13 @@ class LoginController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('login');
+    }
+
+    public function credentials(Request $request)
+    {
+        return [
+            'email' => $request->email,
+            'status_id' => 0,
+        ];
     }
 }

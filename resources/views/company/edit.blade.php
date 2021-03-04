@@ -21,7 +21,7 @@
                     </ul>
                 </div><br />
                 @endif
-                <form action="{{route('users.update', [$users->id])}}" method='post'>
+                <form action="{{route('company.update', [$users->id])}}" method='post'>
                     @csrf
                     {{ method_field('PUT') }}
                     <div class="form-row">

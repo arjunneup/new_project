@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Company;
 use App\Users;
-
 
 class CompanyController extends Controller
 {
@@ -23,28 +23,29 @@ class CompanyController extends Controller
     {
         //create variable
         $validatedData = $request->validate([
-            'title' => ['bail', 'required', 'string', 'max:255'],
+            'title' => ['required', 'string', 'max:255'],
             'lastname' => ['required', 'required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users']
         ]);
-        $companies = new Users();
-        $companies->title = $request->title;
-        $companies->lastname = $request->lastname;
-        $companies->username = $request->username;
-        $companies->email = $request->email;
-        $companies->role = $request->role;
+        $users = new Users();
+        $users->title = $request->title;
+        $users->lastname = $request->lastname;
+        $users->email = $request->email;
+        $users->role = $request->role;
 
-        $companies->save();
+        $users->save();
 
         return redirect()->route('main');
     }
-    public function show(Companies $companies)
+
+    public function show(Users $users)
     {
         //
     }
+
     public function edit(Users $users)
     {
-        return view('company.edit', compact('users'));
+        return view('company.edit', compact('company'));
     }
 
     public function update(Request $request, Users $users)
@@ -56,21 +57,18 @@ class CompanyController extends Controller
             'email' => ['required', 'string', 'email', 'max:255']
         ]);
         $users->title = $request->title;
+      
         $users->lastname = $request->lastname;
         $users->username = $request->username;
         $users->email = $request->email;
-        $users->role = $request->role;
+        $users->role = $request->role;  
         $users->save();
         return redirect()->route('main');
     }
-    public function destroy(Companies $companies)
-    {
-        $companies->delete();
-        return redirect()->route('main');
-    }
+
     public function allList()
     {
 
-        return view('company.index', ['users' => DB::table('users')->paginate(10)]);
+        return view('company.index', ['companies' => []]);
     }
 }

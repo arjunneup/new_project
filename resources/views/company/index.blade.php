@@ -8,7 +8,7 @@
 <body>
   <div class="d-flex" id="wrapper">
     <!-- Sidebar -->
-    @include('includes.company_header')
+    @include('includes.header')
     <!-- /#sidebar-wrapper -->
     <!-- Page Content -->
     <div id="page-content-wrapper">
@@ -23,7 +23,6 @@
                 <th scope="col">id</th>
                 <th scope="col">First Name</th>
                 <th scope="col">Last Name</th>
-                <!--<th scope="col">Username</th>-->
                 <th scope="col">Email</th>
                 <th scope="col">Role</th>
                 <th scope="col">Created</th>
@@ -33,7 +32,7 @@
             </thead>
             <tbody>
               <tr>
-                @foreach($users as $user)
+                @foreach($companies as $user)
                 @if($user->role =='company' || $user->role =='user')
                 <form action="{{route('users.delete',[$user->id])}}" method="post">
                   <th>{{$user->id}}</th>
@@ -59,7 +58,7 @@
             </tbody>
           </table>
         </div>
-        {{ $users->links() }}
+        
 
         <button class="btn btn-sucess">
           <a href="/companies" class="btn btn-success">Add new User</a>

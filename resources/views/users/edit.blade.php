@@ -26,12 +26,8 @@
                     {{ method_field('PUT') }}
                     <div class="form-row">
                         <div class="col">
-                            <label for="title">First Name</label>
+                            <label for="title">Name</label>
                             <input type="text" class="form-control" name="title" id="title" value="{{$users->title}}">
-                        </div>
-                        <div class="col">
-                            <label for="lastname">Last Name</label>
-                            <input type="text" name="lastname" class="form-control" id="lastname" value="{{$users->lastname}}">
                         </div>
                         <div class="col">
                             <label for="email">Email</label>

@@ -25,12 +25,8 @@
                     @csrf
                     <div class="form-row">
                         <div class="col">
-                            <label for="title">First Name</label>
+                            <label for="title">Name</label>
                             <input type="text" class="form-control" placeholder="First name" name="title" id="title">
-                        </div>
-                        <div class="col">
-                            <label for="lastname">Last Name</label>
-                            <input type="text" class="form-control" placeholder="Last name" name="lastname" id="lastname">
                         </div>
                         <div class="col">
                             <label for="email">Email Address</label>
@@ -40,9 +36,9 @@
                             <label for="role">Select Role</label>
                             <select class="custom-select my-1 mr-sm-2" name="role" id="role">
                                 <option selected>Select Role</option>
-                                <option value="1">admin</option>
-                                <option value="2">company</option>
-                                <option value="3">user</option>
+                                <option value="admin">admin</option>
+                                <option value="company">company</option>
+                                <option value="user">user</option>
                             </select>
                         </div>
                     </div>
