@@ -5,7 +5,7 @@
   <div class="list-group list-group-flush">
     <a href="/user" class="list-group-item list-group-item-action bg-light">Users</a>
 
-    <a href="/users" class="list-group-item list-group-item-action bg-light">Add</a>
+    <a href="{{route('user.create')}}" class="list-group-item list-group-item-action bg-light">Add</a>
     <!--
     @if(auth()->user()->role == 'admin' )
     <a href="">Root setting</a>

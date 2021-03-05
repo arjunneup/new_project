@@ -3,72 +3,63 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Company;
 use App\Users;
+use Laravel\Socialite\One\User;
 
 class CompanyController extends Controller
 {
-    public function index()
-    {
-        return view('company.welcome');
+    public function index(){
+
+        $companies   = Company::all();
+        return view('company.index', compact('companies'));
     }
 
     public function create()
     {
-        return view('create');
+        
+        $companies = Company::select('id','name')->get();
+        return view('company.create', compact('companies'));
     }
-
     public function store(Request $request)
     {
-        //create variable
         $validatedData = $request->validate([
-            'title' => ['required', 'string', 'max:255'],
-            'lastname' => ['required', 'required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users']
+            'name' => [ 'required', 'string', 'max:255'],
         ]);
-        $users = new Users();
-        $users->title = $request->title;
-        $users->lastname = $request->lastname;
-        $users->email = $request->email;
-        $users->role = $request->role;
+        $company = new Company();
+        $company->name = $request->name;
 
-        $users->save();
-
-        return redirect()->route('main');
+        $company->save();
+       
+        return redirect()->route('company.index');
     }
 
-    public function show(Users $users)
+    public function show(Company $company)
     {
         //
     }
 
-    public function edit(Users $users)
+    public function edit(Company $company)
     {
         return view('company.edit', compact('company'));
     }
 
-    public function update(Request $request, Users $users)
+    public function update(Request $request, Company $company)
     {
 
         $validatedData = $request->validate([
-            'title' => ['bail', 'required', 'string', 'max:255'],
-            'lastname' => ['required', 'required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255']
+            'name' => ['bail', 'required', 'string', 'max:255'],
+  
         ]);
-        $users->title = $request->title;
-      
-        $users->lastname = $request->lastname;
-        $users->username = $request->username;
-        $users->email = $request->email;
-        $users->role = $request->role;  
-        $users->save();
-        return redirect()->route('main');
+        $company->name = $request->name;  
+        $company->save();
+        return redirect()->route('company.index');
     }
 
-    public function allList()
+    public function destroy(Company $company)
     {
-
-        return view('company.index', ['companies' => []]);
+        $company->delete();
+        return redirect()->route('company.index');
     }
+
 }

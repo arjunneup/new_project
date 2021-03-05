@@ -17,51 +17,41 @@
         <h1 class="mt-4">Company Table</h1>
         <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Names in Table..">
         <div style="overflow-x:auto">
-          <table class="table" id="usersTable">
+          <table class="table" id="CompanyTable">
             <thead class="thead-dark">
               <tr>
                 <th scope="col">id</th>
-                <th scope="col">First Name</th>
-                <th scope="col">Last Name</th>
-                <th scope="col">Email</th>
-                <th scope="col">Role</th>
+                <th scope="col">Company Name</th>
                 <th scope="col">Created</th>
                 <th scope="col">Updated</th>
                 <th scope="col">Action</th>
               </tr>
             </thead>
             <tbody>
+              @foreach($companies as $company)
               <tr>
-                @foreach($companies as $user)
-                @if($user->role =='company' || $user->role =='user')
-                <form action="{{route('users.delete',[$user->id])}}" method="post">
-                  <th>{{$user->id}}</th>
-                  <td>{{$user->title}}</td>
-                  <td>{{$user->lastname}}</td>
-                  <td>{{$user->email}}</td>
-                  <td>{{$user->role}}</td>
-                  <td>{{$user->created_at}}</td>
-                  <td>{{$user->updated_at}}</td>
+                <form action="{{route('company.delete',[$company->id])}}" method="post">
+                  <th>{{$company->id}}</th>
+                  <td>{{$company->name}}</td>
+                  <td>{{$company->created_at}}</td>
+                  <td>{{$company->updated_at}}</td>
                   <td>
-                   
-                    <a href="/users/{{$user->id}}" class="btn btn-primary">Edit</a>
+                    <a href="{{route('company.edit',[$company->id])}}" class="btn btn-primary">Edit</a>
                     <button class="btn btn-danger" type="submit">Delete</button>
-                   
                   </td>
-                  @endif
-
+                  @endforeach
               </tr>
               @csrf
               @method("DELETE")
               </form>
-              @endforeach
+
             </tbody>
           </table>
         </div>
-        
+
 
         <button class="btn btn-sucess">
-          <a href="/companies" class="btn btn-success">Add new User</a>
+          <a href="{{route('company.create')}}" class="btn btn-success">Add new Company</a>
       </div>
     </div>
     <!-- /#page-content-wrapper -->

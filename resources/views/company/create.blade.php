@@ -11,7 +11,7 @@
         <div id="page-content-wrapper">
             @include('includes.navbar')
             <div class="container-fluid">
-                <h1 class="mt-4">Edit User</h1>
+                <h1 class="mt-4">Add New Company</h1>
                 @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -21,20 +21,18 @@
                     </ul>
                 </div><br />
                 @endif
-                <form action="{{route('company.update', [$company->id])}}" method='post'>
+                <form action="{{route('company.store')}}" method='post'>
                     @csrf
-                    {{ method_field('PUT') }}
                     <div class="form-row">
                         <div class="col">
-                            <label for="title">Name</label>
-                            <input type="text" class="form-control" name="name" id="name" value="{{$company->name}}">
-                        </div>
-                        
-                        
+                            <label for="title">Company Name</label>
+                            <input type="text" class="form-control" placeholder="Company Name" name="name" id="name">
+                        </div>    
                     </div>
-                    <button class="btn btn-primary" type="submit">Update</button>
+                    <button class="btn btn-primary" type="submit">Save</button>
             </div>
         </div>
+    </div>
 </body>
 
 </html>

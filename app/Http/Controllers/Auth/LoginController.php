@@ -84,7 +84,7 @@ class LoginController extends Controller
 
         if ($client) {
             auth()->loginUsingId($client->id);
-            return redirect()->route('main');
+            return redirect()->route('user.index');
         }
         //TODO return with proper message
         return redirect()->route('login')->withErrors('User is not registered.');

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
   @include('includes.head')
 </head>
@@ -40,9 +41,9 @@
                   <td>{{$user->role}}</td>
                   <td>
                     @if($user->status_id)
-                      <span class="badge-success badge">Approved</span>
+                    <span class="badge-success badge">Approved</span>
                     @else
-                      <span class="badge-danger badge">Not Approved</span>
+                    <span class="badge-danger badge">Not Approved</span>
                     @endif
                   </td>
                   <td>
@@ -50,9 +51,9 @@
                   </td>
                   <td>{{$user->created_at}}</td>
                   <td>{{$user->updated_at}}</td>
-                  <td> 
+                  <td>
                     @if(auth()->user()->role == 'admin')
-                      <a href="{{ route('user.status', $user->id) }}" class="btn btn-info">Status</a>
+                    <a href="{{ route('user.status', $user->id) }}" class="btn btn-info">Status</a>
                     @endif
                     <a href="/users/{{$user->id}}" class="btn btn-primary">Edit</a>
                     @if($user->role!='admin')

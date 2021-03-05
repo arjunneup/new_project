@@ -118,7 +118,7 @@ class UsersController extends Controller
         $users->email = $request->email;
         $users->role = $request->role;  
         $users->save();
-        return redirect()->route('main');
+        return redirect()->route('user.index');
     }
 
     /**
@@ -130,7 +130,7 @@ class UsersController extends Controller
     public function destroy(Users $users)
     {
         $users->delete();
-        return redirect()->route('main');
+        return redirect()->route('user.index');
     }
 
 }
