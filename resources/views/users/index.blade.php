@@ -14,7 +14,15 @@
     <div id="page-content-wrapper">
       @include('includes.navbar')
       <div class="container-fluid">
+
+        @if(auth()->user()->role =='admin')
         <h1 class="mt-4">Admin Table</h1>
+        @endif
+        @if(auth()->user()->role =='company' || auth()->user()->role =='user')
+        <h1 class="mt-4">Company Table</h1>
+        @endif
+
+
         <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Names in Table..">
         <div style="overflow-x:auto">
           <table class="table" id="usersTable">

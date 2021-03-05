@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('username')->nullable();
             $table->string('email');
             $table->string('role')->nullable();
-            $table->integer('status_id')->nullable();
+            $table->integer('status_id')->nullable()->default(0);
             $table->foreignId('company_id')->nullable()->constrained('companies');
             $table->timestamps();
         });

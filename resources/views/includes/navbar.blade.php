@@ -24,6 +24,10 @@
         -->
 
           <div class="dropdown-divider"></div>
+          <a href="dropdown-item" href="#">{{ auth()->user()->title }} ({{ auth()->user()->role }})
+
+          <br><small>{{auth()->user()->email}}</small>
+          </a>
           <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
             {{ __('Logout') }}

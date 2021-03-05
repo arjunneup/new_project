@@ -9,6 +9,15 @@ use Laravel\Socialite\One\User;
 
 class CompanyController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {      
+            abort_unless(auth()->user()->role === 'admin', 404);
+            return $next($request);
+        });
+    }
+
     public function index(){
 
         $companies   = Company::all();
@@ -25,11 +34,19 @@ class CompanyController extends Controller
     {
         $validatedData = $request->validate([
             'name' => [ 'required', 'string', 'max:255'],
+            'email' => [ 'required', 'email', 'max:255'],
         ]);
         $company = new Company();
         $company->name = $request->name;
 
         $company->save();
+
+        $company->users()->create([
+            'title' => $company->name,
+            'email' => $request->email,
+            'role' => 'company',
+            'company_id' => $company->id,
+        ]);
        
         return redirect()->route('company.index');
     }

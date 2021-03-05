@@ -41,6 +41,7 @@
                                 @endforeach
                             </select>
                         </div>
+                        @if(auth()->user()->role === 'admin')
                         <div class="col d-none" id="company-select-block">
                             <label for="company_id">Select Company</label>
                             <select class="custom-select my-1 mr-sm-2" name="company_id" id="company_id">
@@ -50,6 +51,7 @@
                                 @endforeach
                             </select>
                         </div>
+                        @endif
                     </div>
                     <button class="btn btn-primary" type="submit">Save</button>
             </div>
@@ -66,7 +68,7 @@
         //         localStorage['role'] = this.value; // change localStorage on change
         //     }
         // });
-
+        @if(auth()->user()->role === 'admin')
         document.getElementById('role').onchange = function(e){
             if(e.target.value == 'company' || e.target.value == 'user'){
                 document.getElementById('company-select-block').classList.remove("d-none");
@@ -74,6 +76,7 @@
                 document.getElementById('company-select-block').classList.add("d-none");
             }
         };
+        @endif
     </script>
 </body>
 

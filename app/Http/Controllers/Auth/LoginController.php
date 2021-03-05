@@ -80,10 +80,11 @@ class LoginController extends Controller
 
         $email = $user->email;
         $client = User::where('email',  $email )->first();
-        
 
         if ($client) {
             auth()->loginUsingId($client->id);
+            if(auth()->user()->role === 'user')
+                return redirect()->route('client-area');
             return redirect()->route('user.index');
         }
         //TODO return with proper message

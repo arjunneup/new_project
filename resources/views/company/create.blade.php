@@ -28,8 +28,12 @@
                             <label for="title">Company Name</label>
                             <input type="text" class="form-control" placeholder="Company Name" name="name" id="name">
                         </div>    
+                        <div class="col">
+                            <label for="email">Admin Email</label>
+                            <input type="email" class="form-control" placeholder="Admin Email" name="email" id="email">
+                        </div>    
                     </div>
-                    <button class="btn btn-primary" type="submit">Save</button>
+                    <button class="btn btn-primary mt-3" type="submit">Save</button>
             </div>
         </div>
     </div>

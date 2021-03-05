@@ -17,12 +17,22 @@ class UsersController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+     public function __construct()
+     {
+        $this->middleware(function ($request, $next) {      
+            abort_if(auth()->user()->role === 'user', 404);
+            return $next($request);
+        });
+     }
+
 
     public function index()
     {
         $users = new User();
         $authUser = auth()->user();
-        if($authUser->role != 'admin'){
+        if($authUser->role === 'admin'){
+            $users = $users->where('role','company');
+        }else{
             $users = $users->where('role', '<>', 'admin');
             if($authUser->company){
                $users = $users->where('company_id',$authUser->company_id);
@@ -42,6 +52,10 @@ class UsersController extends Controller
     {
         $roles = ['admin','company','user'];
         $companies = Company::select('id','name')->get();
+        if(auth()->user()->role !== 'admin'){
+            $roles = ['company','user'];
+        }
+
         return view('users.create', compact('roles', 'companies'));
     }
 
@@ -65,8 +79,12 @@ class UsersController extends Controller
         $users->email = $request->email;
         $users->role = $request->role;
 
-        if($request->role == 'company' || $request->role == 'user'){
-            $users->company_id = $request->company_id;
+        if(auth()->user()->role === 'admin'){
+            if($request->role == 'company' || $request->role == 'user'){
+                $users->company_id = $request->company_id;
+            }
+        }else{
+            $users->company_id = auth()->user()->company_id;
         }
         
         $users->save();

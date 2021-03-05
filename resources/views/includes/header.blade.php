@@ -1,11 +1,19 @@
 <!-- Sidebar -->
 <div class="bg-light border-right" id="sidebar-wrapper">
-
+  @if(auth()->user()->role =='admin')
   <div class="sidebar-heading">Admin Dashboard </div>
+  @endif
+  @if(auth()->user()->role =='company' || auth()->user()->role =='user')
+  <div class="sidebar-heading">Company Dashboard </div>
+  @endif
   <div class="list-group list-group-flush">
     <a href="/user" class="list-group-item list-group-item-action bg-light">Users</a>
-
-    <a href="{{route('user.create')}}" class="list-group-item list-group-item-action bg-light">Add</a>
+    
+    <a href="{{route('user.create')}}" class="list-group-item list-group-item-action bg-light">Add New Users</a>
+    @if(auth()->user()->role =='admin')
+    <a href="{{route('company.create')}}" class="list-group-item list-group-item-action bg-light">Add Company</a>
+    <a href="{{route('company.index')}}" class="list-group-item list-group-item-action bg-light">Company List</a>
+    @endif
     <!--
     @if(auth()->user()->role == 'admin' )
     <a href="">Root setting</a>
